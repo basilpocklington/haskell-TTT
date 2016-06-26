@@ -1,7 +1,8 @@
+import Board
 import Test.HUnit
 
-test1 = TestCase (assertEqual "This Thing" 1 1)
+testNewEmptyBoard = TestCase (assertEqual "should return new 9 space empty board"(take 9 (repeat empty)) (newBoard 3))
 
-tests = TestList [TestLabel "test1" test1]
+tests = TestList [TestLabel "New Board" testNewEmptyBoard ]
 
 
