@@ -1,15 +1,28 @@
-module Board 
-  ( Symbol 
+module Board
+  ( Symbol
   , empty
+  , x
   , newBoard
+  , updateNthElement
+  , updateBoard
   ) where
 
-data Symbol = E deriving (Eq)
+import Data.List.Split
+
+data Symbol = E
+            | X
+            deriving (Eq, Show)
 
 empty = E
+x = X
 
-newBoard :: Int -> [Symbol] 
-newBoard size = take (size * size) (repeat empty) 
+newBoard :: Int -> [[Symbol]]
+newBoard size = (take size(repeat (take size (repeat empty))))
 
-instance Show Symbol where
-  show E = show '_'
+updateNthElement :: Int -> Symbol -> [Symbol] -> [Symbol]
+updateNthElement space symbol board = take (space - 1) board ++ [symbol] ++ drop space board
+
+updateBoard :: Int -> Symbol -> [[Symbol]] -> [[Symbol]]
+updateBoard space symbol board = chunksOf (length board) (updateNthElement space symbol (concat board))
+
+
