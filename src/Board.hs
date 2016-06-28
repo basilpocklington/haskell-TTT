@@ -3,8 +3,11 @@ module Board
   , empty
   , x
   , newBoard
+  , updateNthElement
   , updateBoard
   ) where
+
+import Data.List.Split
 
 data Symbol = E
             | X
@@ -16,7 +19,10 @@ x = X
 newBoard :: Int -> [[Symbol]]
 newBoard size = (take size(repeat (take size (repeat empty))))
 
-updateBoard :: Int -> Symbol -> [Symbol] -> [Symbol]
-updateBoard space symbol board = take (space - 1) board ++ [symbol] ++ drop space board
+updateNthElement :: Int -> Symbol -> [Symbol] -> [Symbol]
+updateNthElement space symbol board = take (space - 1) board ++ [symbol] ++ drop space board
+
+updateBoard :: Int -> Symbol -> [[Symbol]] -> [[Symbol]]
+updateBoard space symbol board = chunksOf (length board) (updateNthElement space symbol (concat board))
 
 
