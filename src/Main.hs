@@ -4,4 +4,6 @@ import Board
 import UI
 
 main :: IO ()
-main = putStr (buildBoardString (newBoard 3))
+main = do
+  input <- getUserInput
+  putStr (buildBoardString (updateBoard (read input) o (newBoard 3)))
