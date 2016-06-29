@@ -13,7 +13,7 @@ makeMove board players = do
 
 play board players = do
   printBoard board
-  if isFull board
+  if gameIsOver board
     then gameOver
     else makeMove board players
 
