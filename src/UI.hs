@@ -7,10 +7,13 @@ module UI
       , getUserInput
       , inputPrompt
       , gameOver
+      , isValidSpace
+      , isValidMove
       ) where
 
 import Board
 import Text.Regex.Posix
+import System.Console.ANSI
 
 buildBoardString :: [[Symbol]] -> String
 buildBoardString board = concat (map rowToString board)
@@ -29,15 +32,23 @@ inputPrompt = do
   putStr "Please choose a space(1-9): "
   getLine
 
-getUserInput :: IO String
-getUserInput = do
+getUserInput :: [[Symbol]] -> IO String
+getUserInput board = do
   input <- inputPrompt
-  if isValidInput input
+  if isValidMove board input
     then return input
-    else getUserInput
+    else getUserInput board
 
 printBoard :: [[Symbol]] -> IO ()
-printBoard board = putStr (buildBoardString board)
+printBoard board = do
+  clearFromCursorToScreenBeginning
+  putStr (buildBoardString board)
 
 gameOver = do
   putStrLn "Game Over!"
+
+isValidSpace :: [[Symbol]] -> String -> Bool
+isValidSpace board space = ((concat board) !! ((read space)-1)) == Board.empty
+
+isValidMove :: [[Symbol]] -> String -> Bool
+isValidMove board space = (isValidInput space) && (isValidSpace board space)

@@ -8,7 +8,7 @@ import UI
 import Data.Tuple
 
 makeMove board players = do
-  input <- getUserInput
+  input <- getUserInput board
   play (updateBoard (read input) (fst players) board) (swap players)
 
 play board players = do
