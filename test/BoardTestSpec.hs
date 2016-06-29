@@ -18,3 +18,9 @@ spec = do
 
     it "should update board when symbol is placed" $ do
       (updateBoard 5 x (newBoard 3)) `shouldBe` [[empty, empty, empty], [empty, x, empty], [empty, empty, empty]]
+
+    it "should return false if board is not full" $ do
+      isFull (newBoard 3) `shouldBe` False
+
+    it "should return true if board is full" $ do
+      isFull [[x, x, x], [x, x, x], [x, x, x]] `shouldBe` True

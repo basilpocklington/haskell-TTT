@@ -19,3 +19,9 @@ spec = do
 
     it "should convert non-empty row of symbols to string" $ do
       rowToString [empty, x, empty] `shouldBe` "E X E\n"
+
+    it "should return false on invalid input" $ do
+      isValidInput "z" `shouldBe` False
+
+    it "should return true on valid input" $ do
+      isValidInput "1" `shouldBe` True

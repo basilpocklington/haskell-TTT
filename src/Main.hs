@@ -1,7 +1,7 @@
 module Main where
 
+import Game
 import Board
-import UI
 
 main :: IO ()
-main = putStr (buildBoardString (newBoard 3))
+main = play (newBoard 3) (x,o)
