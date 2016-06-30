@@ -25,3 +25,12 @@ spec = do
 
     it "should return true on valid input" $ do
       isValidInput "1" `shouldBe` True
+
+    it "should return true on empty space" $ do
+      isValidSpace [[empty, x, empty], [x, x, x], [x, x, x]] "1" `shouldBe` True
+
+    it "should return false on non empty space" $ do
+      isValidSpace [[empty, x, empty], [x, x, x], [x, x, x]] "2" `shouldBe` False
+
+    it "should return true on non empty space in correct range" $ do
+      isValidMove [[x, empty, x], [x, x, x], [x, x, x]] "2" `shouldBe` True
