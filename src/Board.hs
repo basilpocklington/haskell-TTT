@@ -68,6 +68,6 @@ getAllCombinations board = ((board ++ (getColumns  board)) ++ [getDiagonal board
 getWinner :: [[Symbol]] -> Symbol
 getWinner board = do
   let winner = filter checkRowWinner (getAllCombinations board)
-  if (length winner) == 1
+  if (length winner) >= 1
     then head (head winner)
     else empty

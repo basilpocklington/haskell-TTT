@@ -62,8 +62,14 @@ spec = do
     it "should return x for x winner" $ do
       getWinner [[x, x, x], [o, empty, o], [empty, empty, empty]] `shouldBe` x
 
-    it "should return ? for no winner" $ do
+    it "should return empty for no winner on empty board" $ do
       getWinner (newBoard 3) `shouldBe` empty
+
+    it "should return empty for no winner on full tie board" $ do
+      getWinner [[o, o, x], [x, x, o], [o, o, x]] `shouldBe` empty
+
+    it "should return x for winner on full board" $ do
+      getWinner [[x, o, x], [o, x, o], [x, o, x]] `shouldBe` x
 
     it "should return true for x winner" $ do
       gameIsOver [[x, x, x], [o, empty, o], [empty, empty, empty]] `shouldBe` True
