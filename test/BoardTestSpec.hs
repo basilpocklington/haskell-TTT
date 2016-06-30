@@ -80,3 +80,6 @@ spec = do
     it "should return false for empty board" $ do
       gameIsOver (newBoard 3) `shouldBe` False
 
+    it "should return a list of empty spaces" $ do
+      getEmptySpaces [[x,o,x],[o,empty,o],[o,empty,empty]] `shouldBe` [5, 8, 9]
+

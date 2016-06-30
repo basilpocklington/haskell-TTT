@@ -15,6 +15,7 @@ module Board
   , getColumns
   , getAllCombinations
   , getWinner
+  , getEmptySpaces
   ) where
 
 import Data.List.Split
@@ -64,6 +65,9 @@ getColumns board = transpose board
 
 getAllCombinations :: [[Symbol]] -> [[Symbol]]
 getAllCombinations board = ((board ++ (getColumns  board)) ++ [getDiagonal board]) ++ [getAntiDiagonal board]
+
+getEmptySpaces :: [[Symbol]] -> [Integer]
+getEmptySpaces board = map fst (filter ((==Board.empty ).snd) (zip [1..] (concat board)))
 
 getWinner :: [[Symbol]] -> Symbol
 getWinner board = do
