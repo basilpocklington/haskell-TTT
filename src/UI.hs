@@ -9,17 +9,20 @@ module UI
       , gameOver
       , isValidSpace
       , isValidMove
+      , addIndices
+      , symbolToString
       ) where
 
 import Board
+import Data.List.Split
 import Text.Regex.Posix
 import System.Console.ANSI
 
-buildBoardString :: [[Symbol]] -> String
+buildBoardString :: [[(Integer, Symbol)]] -> String
 buildBoardString board = concat (map rowToString board)
 
-rowToString :: [Symbol] -> String
-rowToString row = (unwords (map show row)) ++ "\n"
+rowToString :: [(Integer, Symbol)] -> String
+rowToString row = (unwords (map symbolToString row)) ++ "\n"
 
 isValidInput :: String -> Bool
 isValidInput userInput = userInput =~ "^[1-9]$"
@@ -42,7 +45,7 @@ getUserInput board = do
 printBoard :: [[Symbol]] -> IO ()
 printBoard board = do
   clearFromCursorToScreenBeginning
-  putStr (buildBoardString board)
+  putStr (buildBoardString (addIndices board))
 
 gameOver = do
   putStrLn "Game Over!"
@@ -52,3 +55,12 @@ isValidSpace board space = ((concat board) !! ((read space)-1)) == Board.empty
 
 isValidMove :: [[Symbol]] -> String -> Bool
 isValidMove board space = (isValidInput space) && (isValidSpace board space)
+
+addIndices :: [[Symbol]] -> [[(Integer, Symbol)]]
+addIndices board = chunksOf (length board) (zip [1..] (concat board))
+
+symbolToString :: (Integer, Symbol) -> String
+symbolToString indexedSymbol = do
+  if (snd indexedSymbol) == Board.empty
+    then show (fst indexedSymbol)
+    else show (snd indexedSymbol)
