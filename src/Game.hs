@@ -6,10 +6,18 @@ module Game
 import Board
 import UI
 import Data.Tuple
+import AI
+import System.Console.ANSI
 
 makeMove board players = do
-  input <- getUserInput board
-  play (updateBoard (read input) (fst players) board) (swap players)
+  if (fst players) == x
+    then do
+      input <- getUserInput board
+      play (updateBoard (read input) (fst players) board) (swap players)
+    else do
+      clearFromCursorToScreenBeginning
+      putStrLn "Computer Thinking"
+      play (updateBoard (minimaxMove board players) (fst players) board) (swap players)
 
 play board players = do
   printBoard board

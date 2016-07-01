@@ -18,10 +18,10 @@ import Data.List.Split
 import Text.Regex.Posix
 import System.Console.ANSI
 
-buildBoardString :: [[(Integer, Symbol)]] -> String
+buildBoardString :: [[(Int , Symbol)]] -> String
 buildBoardString board = concat (map rowToString board)
 
-rowToString :: [(Integer, Symbol)] -> String
+rowToString :: [(Int , Symbol)] -> String
 rowToString row = (unwords (map symbolToString row)) ++ "\n"
 
 isValidInput :: String -> Bool
@@ -56,10 +56,10 @@ isValidSpace board space = ((concat board) !! ((read space)-1)) == Board.empty
 isValidMove :: [[Symbol]] -> String -> Bool
 isValidMove board space = (isValidInput space) && (isValidSpace board space)
 
-addIndices :: [[Symbol]] -> [[(Integer, Symbol)]]
+addIndices :: [[Symbol]] -> [[(Int , Symbol)]]
 addIndices board = chunksOf (length board) (zip [1..] (concat board))
 
-symbolToString :: (Integer, Symbol) -> String
+symbolToString :: (Int , Symbol) -> String
 symbolToString indexedSymbol = do
   if (snd indexedSymbol) == Board.empty
     then show (fst indexedSymbol)
