@@ -3,6 +3,7 @@ module AI
         , getWinnerPoints
         , calculatePoints
         , minimaxMove
+        ,getAllScoresForCurrentBoardState
         ) where
 
 import Board
@@ -37,18 +38,20 @@ calculatePoints board players depth = do
     then 0
     else getWinnerPoints winner depth
 
-score :: [[Symbol]] -> (Symbol, Symbol) -> Int -> Int
-score board players depth = do
+getAllScoresForCurrentBoardState :: [[Symbol]] -> (Symbol, Symbol) -> Int -> [Int]
+getAllScoresForCurrentBoardState board players depth = do
+  let availableMoves = getEmptySpaces board
+  (map (\m -> (getOptimalScore (updateBoard m (fst players) board)) (swap players) (succ depth)) availableMoves)
+
+getOptimalScore :: [[Symbol]] -> (Symbol, Symbol) -> Int -> Int
+getOptimalScore board players depth = do
   if gameIsOver board
     then calculatePoints board players depth
-    else do
-      let availableMoves = getEmptySpaces board
-      let scores = (map (\m -> (score (updateBoard m (fst players) board)) (swap players) (succ depth)) availableMoves)
-      extractOptimalScore (fst players) scores
+    else extractOptimalScore (fst players) (getAllScoresForCurrentBoardState board players depth)
 
-minimaxMove :: [[Symbol]] -> (Symbol, Symbol) -> Int
-minimaxMove board players = do
+minimaxMove :: [[Symbol]] -> (Symbol, Symbol) -> Int  -> Int
+minimaxMove board players depth = do
   let availableMoves = getEmptySpaces board
-  let scores = (map (\m -> (score (updateBoard m (fst players) board)) (swap players) 1) availableMoves)
+  let scores = getAllScoresForCurrentBoardState board players depth
   let scoredMoves = zip availableMoves scores
   extractOptimalMove players scoredMoves

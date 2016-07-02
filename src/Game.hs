@@ -20,7 +20,7 @@ takeComputerTurn :: [[Symbol]] -> (Symbol, Symbol) -> IO ()
 takeComputerTurn board players = do
   printBoard board
   thinkingMessage
-  play (updateBoard (minimaxMove board players) (fst players) board) (swap players)
+  play (updateBoard (minimaxMove board players) (fst players) board) (swap players) 0
 
 makeMove :: [[Symbol]] -> (Symbol, Symbol) -> IO ()
 makeMove board players = do

@@ -45,79 +45,79 @@ spec = do
     it "1 returns blocking move if no win is possible X on top" $ do
       minimaxMove [[x, x, empty],
                     [empty, empty, empty],
-                    [empty, empty, o]] (o, x) `shouldBe` 3
+                    [empty, empty, o]] (o, x) 0`shouldBe` 3
 
     it "2 returns blocking move if no win is possible O on top" $ do
       minimaxMove [[o, empty, empty],
                     [empty, empty, empty],
-                    [empty, x, x]] (o, x) `shouldBe` 7
+                    [empty, x, x]] (o, x) 0`shouldBe` 7
 
     it "3 returns win rather than block when possible X on top" $ do
       minimaxMove [[x, x, empty],
                     [empty, empty, empty],
-                    [empty, o, o]] (o, x) `shouldBe` 7
+                    [empty, o, o]] (o, x) 0`shouldBe` 7
 
     it "4 returns win rather than block when possible O on top" $ do
       minimaxMove [[o, empty, o],
                     [empty, empty, empty],
-                    [x, empty, x]] (o, x) `shouldBe` 2
+                    [x, empty, x]] (o, x) 0`shouldBe` 2
 
     it "5 returns blocking move if no win is possible" $ do
       minimaxMove [[x, o, o],
                     [empty, x, empty],
-                    [empty, empty, empty]] (o, x) `shouldBe` 9
+                    [empty, empty, empty]] (o, x) 0`shouldBe` 9
 
     it "6 returns blocking move if no win is possible" $ do
       minimaxMove [[o, o, x],
                     [empty, x, empty],
-                    [empty, empty, empty]] (o, x) `shouldBe` 7
+                    [empty, empty, empty]] (o, x) 0`shouldBe` 7
 
     it "7 returns blocking move if no win is possible" $ do
       minimaxMove [[o, empty, x],
                     [empty, x, empty],
-                    [empty, empty, empty]] (o, x) `shouldBe` 7
+                    [empty, empty, empty]] (o, x) 0`shouldBe` 7
 
     it "8 returns blocking move if no win is possible" $ do
       minimaxMove [[empty, empty, empty],
                     [empty, x, o],
-                    [empty, empty, x]] (o, x) `shouldBe` 1
+                    [empty, empty, x]] (o, x) 0`shouldBe` 1
 
     it "9 returns blocking move" $ do
       minimaxMove [[o, o, empty],
                     [empty, empty, empty],
-                    [empty, empty, x]] (x, o) `shouldBe` 3
+                    [empty, empty, x]] (x, o) 0`shouldBe` 3
 
     it "10 returns blocking move" $ do
       minimaxMove [[x, empty, empty],
                     [empty, empty, empty],
-                    [empty, o, o]] (x, o) `shouldBe` 7
+                    [empty, o, o]] (x, o) 0`shouldBe` 7
 
     it "11 returns winning move" $ do
       minimaxMove [[o, o, empty],
                     [empty, empty, empty],
-                    [empty, x, x]] (x, o) `shouldBe` 7
+                    [empty, x, x]] (x, o) 0`shouldBe` 7
 
     it "12 returns winning move" $ do
       minimaxMove [[x, empty, x],
                     [empty, empty, empty],
-                    [o, empty, o]] (x, o) `shouldBe` 2
+                    [o, empty, o]] (x, o) 0`shouldBe` 2
 
     it "13 returns blocking move" $ do
       minimaxMove [[o, x, x],
                     [empty, o, empty],
-                    [empty, empty, empty]] (x, o) `shouldBe` 9
+                    [empty, empty, empty]] (x, o) 0`shouldBe` 9
 
     it "14 returns blocking move" $ do
       minimaxMove [[x, x, o],
                     [empty, o, empty],
-                    [empty, empty, empty]] (x, o) `shouldBe` 7
+                    [empty, empty, empty]] (x, o) 0`shouldBe` 7
 
     it "15 returns blocking move" $ do
       minimaxMove [[x, empty, o],
                     [empty, o, empty],
-                    [empty, empty, empty]] (x, o) `shouldBe` 7
+                    [empty, empty, empty]] (x, o) 0`shouldBe` 7
 
     it "16 returns blocking move" $ do
       minimaxMove [[empty, empty, empty],
                     [empty, o, x],
-                    [empty, empty, o]] (x, o) `shouldBe` 1
+                    [empty, empty, o]] (x, o) 0`shouldBe` 1
