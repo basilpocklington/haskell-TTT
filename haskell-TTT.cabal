@@ -41,8 +41,6 @@ test-suite spec
       src
     , test
   main-is: TestRunner.hs
-  other-modules:
-      Test.Hspec.DiscoverSpec
   build-depends:
       base == 4.*
     , hspec-core == 2.2.3
