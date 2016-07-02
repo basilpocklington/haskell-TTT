@@ -11,12 +11,13 @@ module UI
       , isValidMove
       , addIndices
       , symbolToString
+      , thinkingMessage
+      , clearScreen
       ) where
 
 import Board
 import Data.List.Split
 import Text.Regex.Posix
-import System.Console.ANSI
 
 buildBoardString :: [[(Int , Symbol)]] -> String
 buildBoardString board = concat (map rowToString board)
@@ -44,11 +45,16 @@ getUserInput board = do
 
 printBoard :: [[Symbol]] -> IO ()
 printBoard board = do
-  clearFromCursorToScreenBeginning
+  clearScreen
   putStr (buildBoardString (addIndices board))
 
+gameOver :: IO ()
 gameOver = do
   putStrLn "Game Over!"
+
+thinkingMessage :: IO ()
+thinkingMessage = do
+  putStrLn "Computer is thinking!"
 
 isValidSpace :: [[Symbol]] -> String -> Bool
 isValidSpace board space = ((concat board) !! ((read space)-1)) == Board.empty
@@ -64,3 +70,6 @@ symbolToString indexedSymbol = do
   if (snd indexedSymbol) == Board.empty
     then show (fst indexedSymbol)
     else show (snd indexedSymbol)
+
+clearScreen :: IO ()
+clearScreen = putStrLn "\ESC[2J\ESC[H"
