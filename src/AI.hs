@@ -10,6 +10,7 @@ import Board
 import Data.List
 import Data.Function
 import Data.Tuple
+import Control.Parallel.Strategies
 
 
 extractOptimalMove ::  (Symbol, Symbol) -> [(Int, Int)] -> Int
@@ -41,7 +42,7 @@ calculatePoints board players depth = do
 getAllScoresForCurrentBoardState :: [[Symbol]] -> (Symbol, Symbol) -> Int -> [Int]
 getAllScoresForCurrentBoardState board players depth = do
   let availableMoves = getEmptySpaces board
-  (map (\m -> (getOptimalScore (updateBoard m (fst players) board)) (swap players) (succ depth)) availableMoves)
+  (parMap rpar (\m -> (getOptimalScore (updateBoard m (fst players) board)) (swap players) (succ depth)) availableMoves)
 
 getOptimalScore :: [[Symbol]] -> (Symbol, Symbol) -> Int -> Int
 getOptimalScore board players depth = do

@@ -18,6 +18,7 @@ module UI
 import Board
 import Data.List.Split
 import Text.Regex.Posix
+import System.IO
 
 buildBoardString :: [[(Int , Symbol)]] -> String
 buildBoardString board = concat (map rowToString board)
@@ -34,6 +35,7 @@ get = getLine
 inputPrompt :: IO String
 inputPrompt = do
   putStr "Please choose a space(1-9): "
+  hFlush stdout
   getLine
 
 getUserInput :: [[Symbol]] -> IO String
