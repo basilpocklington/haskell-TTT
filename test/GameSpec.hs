@@ -1,10 +1,9 @@
 module GameSpec (spec) where
 
-import Game
 import Board
+import Game
 import Player
 import Test.Hspec
-import Test.QuickCheck
 
 main :: IO ()
 main = hspec spec

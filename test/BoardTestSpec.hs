@@ -1,8 +1,7 @@
 module BoardTestSpec (spec) where
 
-import Test.Hspec
-import Test.QuickCheck
 import Board
+import Test.Hspec
 
 main :: IO ()
 main = hspec spec

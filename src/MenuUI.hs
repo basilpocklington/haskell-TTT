@@ -25,8 +25,8 @@ isValidMenuInput :: String -> Bool
 isValidMenuInput userInput = userInput =~ "^[1-3]$"
 
 getUserMenuInput :: IO String -> IO String
-getUserMenuInput inputMenuPrompt = do
-  input <- inputMenuPrompt
+getUserMenuInput menuPrompt = do
+  input <- menuPrompt
   if isValidMenuInput input
     then return input
     else getUserMenuInput inputMenuPrompt

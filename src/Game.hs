@@ -1,12 +1,11 @@
 module Game where
 
+import AI
 import Board
-import UI
 import MenuUI
 import Player
+import UI
 import Data.Tuple
-import AI
-import Control.Concurrent
 
 
 takeHumanTurn :: [[Symbol]] -> (Player, Player) -> IO ()
