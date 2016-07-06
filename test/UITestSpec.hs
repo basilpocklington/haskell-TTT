@@ -89,3 +89,17 @@ spec = do
     it "Should Return red encoded symbol in string format" $ do
       setSymbolToGreen (1, o) `shouldBe` "\ESC[32mO\ESC[0m"
 
+    it "Should build winner string with x symbol" $ do
+      getGameOutcomeString [[o, empty, o],
+                     [x, x, x],
+                     [o, o, x]] `shouldBe` "X Wins!"
+
+    it "Should build winner string with o symbol" $ do
+      getGameOutcomeString [[o, empty, o],
+                     [x, o, x],
+                     [o, o, x]] `shouldBe` "O Wins!"
+
+    it "Should build winner string with o symbol" $ do
+      getGameOutcomeString [[o, x, o],
+                       [x, o, x],
+                       [x, o, x]] `shouldBe` "Tie."

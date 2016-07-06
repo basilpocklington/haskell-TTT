@@ -10,6 +10,7 @@ module UI
       , inputPrompt
       , inputMenuPrompt
       , gameOver
+      , getGameOutcomeString
       , isValidSpace
       , isValidMove
       , addIndices
@@ -51,8 +52,8 @@ welcomeMessage = clearScreenHome ++ "Welcome To Haskell Tic Tac Toe!"
 
 menuPromptMessage :: IO ()
 menuPromptMessage = do
-  putStrLn "1) Human vs Computer"
-  putStrLn "2) Human vs Human"
+  putStrLn "1) Human vs Human"
+  putStrLn "2) Human vs Computer"
   putStrLn "3) Computer vs Computer"
   putStr "Please choose a game type(1-3): "
 
@@ -62,7 +63,14 @@ inputMovePromptMessage = putStr "Please choose a space(1-9): "
 gameOver :: [[Symbol]] -> IO ()
 gameOver board = do
   printBoard board
-  putStrLn "Game Over!"
+  putStrLn (getGameOutcomeString board)
+
+
+getGameOutcomeString :: [[Symbol]] -> String
+getGameOutcomeString board = do
+  if getWinner board == Board.empty
+    then "Tie."
+    else (show (getWinner board)) ++ " Wins!"
 
 thinkingMessage :: String
 thinkingMessage = "Computer is thinking!"
