@@ -3,6 +3,7 @@ module Game
   , makeMove
   , takeHumanTurn
   , takeComputerTurn
+  , menuSelect
   , start
   ) where
 
@@ -17,7 +18,7 @@ import Control.Concurrent
 takeHumanTurn :: [[Symbol]] -> (Player, Player) -> IO ()
 takeHumanTurn board players = do
   printBoard board
-  input <- getUserInput board inputPrompt
+  input <- getUserMoveInput board inputPrompt
   play (updateBoard (read input) (currentPlayerSymbol players) board) (swap players)
 
 takeComputerTurn :: [[Symbol]] -> (Player, Player) -> IO ()
@@ -38,8 +39,17 @@ play board players = do
     then gameOver board
     else makeMove board players
 
+menuSelect :: String -> (Player, Player)
+menuSelect choice = do
+  if choice == "1"
+    then humanVsHuman
+    else do
+      if choice == "2"
+        then humanVsComputer
+        else computerVsComputer
+
 start :: IO ()
 start = do
   putStrLn welcomeMessage
-  threadDelay 1000000
-  play (newBoard 3) (Player {playerType="human", playerSymbol=x},Player {playerType="human", playerSymbol=o})
+  input <- inputMenuPrompt
+  play (newBoard 3) (menuSelect input)

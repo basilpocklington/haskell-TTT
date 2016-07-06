@@ -27,10 +27,18 @@ spec = do
       rowToString [(1, empty), (2, x), (3, empty)] `shouldBe` "|_1_|_\ESC[31mX\ESC[0m_|_3_|\n"
 
     it "should return false on invalid input" $ do
-      isValidInput "z" `shouldBe` False
+      isValidMoveInput "z" `shouldBe` False
 
     it "should return true on valid input" $ do
-      isValidInput "1" `shouldBe` True
+      isValidMoveInput "1" `shouldBe` True
+
+    it "should return false on invalid menu input" $ do
+      isValidMenuInput "z" `shouldBe` False
+      isValidMenuInput "4" `shouldBe` False
+
+    it "should return true on valid menu input" $ do
+      isValidMenuInput "1" `shouldBe` True
+
 
     it "should return true on empty space" $ do
       isValidSpace [[empty, x, empty],
@@ -65,9 +73,12 @@ spec = do
       symbolToString (1, o) `shouldBe` "\ESC[32mO\ESC[0m"
 
     it "should return the input from the user" $ do
-      getUserInput [[empty, empty, x],
+      getUserMoveInput [[empty, empty, x],
                      [x, x, x],
                      [x, empty, x]] mockInput `shouldReturn`  "1"
+
+    it "should return the input from the user menu" $ do
+      getUserMenuInput mockInput `shouldReturn`  "1"
 
     it "Should Return Welcome String" $ do
       welcomeMessage `shouldBe` "\ESC[2J\ESC[HWelcome To Haskell Tic Tac Toe!"
