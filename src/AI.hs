@@ -27,8 +27,8 @@ getWinnerPoints player depth = do
     then depth - 10
     else 10 - depth
 
-calculatePoints :: [[Symbol]] -> (Player, Player) -> Int -> Int
-calculatePoints board players depth = do
+calculatePoints :: [[Symbol]] -> Int -> Int
+calculatePoints board depth = do
   let winner = getWinner board
   if winner == empty
     then 0
@@ -42,7 +42,7 @@ getAllScoresForCurrentBoardState board players depth = do
 getOptimalScore :: [[Symbol]] -> (Player, Player) -> Int -> Int
 getOptimalScore board players depth = do
   if gameIsOver board
-    then calculatePoints board players depth
+    then calculatePoints board depth
     else extractOptimalScore (currentPlayerSymbol players) (getAllScoresForCurrentBoardState board players depth)
 
 minimaxMove :: [[Symbol]] -> (Player, Player) -> Int  -> Int

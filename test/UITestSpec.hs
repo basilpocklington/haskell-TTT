@@ -1,11 +1,9 @@
 module UITestSpec (spec) where
 
-import Test.Hspec
-import Test.QuickCheck
-import UI
 import Board
+import UI
+import Test.Hspec
 import Data.List.Split
-
 
 main :: IO ()
 main = hspec spec
@@ -33,27 +31,16 @@ spec = do
       isValidMoveInput "1" `shouldBe` True
 
     it "should return true on empty space" $ do
-      isValidSpace [[empty, x, empty],
-                     [x, x, x],
-                     [x, x, x]] "1" `shouldBe` True
+      isValidSpace validSpaceTester "1" `shouldBe` True
 
     it "should return false on non empty space" $ do
-      isValidSpace [[empty, x, empty],
-                     [x, x, x],
-                     [x, x, x]] "2" `shouldBe` False
+      isValidSpace validSpaceTester "2" `shouldBe` False
 
     it "should return true on non empty space in correct range" $ do
-      isValidMove [[x, empty, x],
-                     [x, x, x],
-                     [x, x, x]] "2" `shouldBe` True
+      isValidMove validSpaceTester "9" `shouldBe` True
 
     it "should return board with indices" $ do
-      addIndices  [[x, empty, x],
-                     [x, x, x],
-                     [x, empty, x]] `shouldBe`
-                                  [[(1, x), (2, empty), (3, x)]
-                                  , [(4, x), (5, x), (6, x)]
-                                  ,[(7, x), (8, empty), (9, x)]]
+      addIndices  boardWithoutIndices `shouldBe` boardWithIndices
 
     it "should be string of number if empty" $ do
       symbolToString (1,empty) `shouldBe` "1"
@@ -65,9 +52,9 @@ spec = do
       symbolToString (1, o) `shouldBe` "\ESC[32mO\ESC[0m"
 
     it "should return the input from the user" $ do
-      getUserMoveInput [[empty, empty, x],
-                     [x, x, x],
-                     [x, empty, x]] mockInput `shouldReturn`  "1"
+      getUserMoveInput [[empty, empty, x]
+                       ,[x, x, x]
+                       ,[x, empty, x]] mockInput `shouldReturn`  "1"
 
     it "Should Return red encoded symbol in string format" $ do
       setSymbolToRed (1, x) `shouldBe` "\ESC[31mX\ESC[0m"
@@ -76,16 +63,34 @@ spec = do
       setSymbolToGreen (1, o) `shouldBe` "\ESC[32mO\ESC[0m"
 
     it "Should build winner string with x symbol" $ do
-      getGameOutcomeString [[o, empty, o],
-                     [x, x, x],
-                     [o, o, x]] `shouldBe` "X Wins!"
+      getGameOutcomeString xWins `shouldBe` "X Wins!"
 
     it "Should build winner string with o symbol" $ do
-      getGameOutcomeString [[o, empty, o],
-                     [x, o, x],
-                     [o, o, x]] `shouldBe` "O Wins!"
+      getGameOutcomeString oWins `shouldBe` "O Wins!"
 
-    it "Should build winner string with o symbol" $ do
-      getGameOutcomeString [[o, x, o],
-                       [x, o, x],
-                       [x, o, x]] `shouldBe` "Tie."
+    it "Should build tie string" $ do
+      getGameOutcomeString tie `shouldBe` "Tie."
+
+validSpaceTester = [[empty, x, empty]
+                   ,[x, x, x]
+                   ,[x, x, empty]]
+
+boardWithoutIndices = [[x, empty, x]
+                      ,[x, x, x]
+                      ,[x, empty, x]]
+
+boardWithIndices = [[(1, x), (2, empty), (3, x)]
+                   ,[(4, x), (5, x), (6, x)]
+                   ,[(7, x), (8, empty), (9, x)]]
+
+xWins = [[o, empty, o]
+        ,[x, x, x]
+        ,[o, o, x]]
+
+oWins = [[o, empty, o]
+        ,[x, o, x]
+        ,[o, o, x]]
+
+tie = [[o, x, o]
+      ,[x, o, x]
+      ,[x, o, x]]

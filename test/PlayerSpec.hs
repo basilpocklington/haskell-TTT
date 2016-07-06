@@ -4,7 +4,6 @@ import Player
 import Game
 import Board
 import Test.Hspec
-import Test.QuickCheck
 
 main :: IO ()
 main = hspec spec

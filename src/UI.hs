@@ -47,8 +47,8 @@ inputPrompt = do
   getLine
 
 getUserMoveInput :: [[Symbol]] -> IO String -> IO String
-getUserMoveInput board inputPrompt = do
-  input <- inputPrompt
+getUserMoveInput board movePrompt = do
+  input <- movePrompt
   if isValidMove board input
     then return input
     else getUserMoveInput board inputPrompt

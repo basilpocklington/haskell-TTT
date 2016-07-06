@@ -1,7 +1,6 @@
 module MenuUITestSpec (spec) where
 
 import Test.Hspec
-import Test.QuickCheck
 import MenuUI
 import Board
 import Data.List.Split
