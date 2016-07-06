@@ -75,3 +75,4 @@ getWinner board = do
   if (length winner) >= 1
     then head (head winner)
     else empty
+

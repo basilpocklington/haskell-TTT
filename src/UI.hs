@@ -12,19 +12,22 @@ module UI
       , addIndices
       , symbolToString
       , thinkingMessage
-      , clearScreen
+      , clearScreenHome
+      , welcomeMessage
       ) where
 
 import Board
 import Data.List.Split
+import Data.List
 import Text.Regex.Posix
 import System.IO
+import System.Console.ANSI
 
 buildBoardString :: [[(Int , Symbol)]] -> String
 buildBoardString board = concat (map rowToString board)
 
 rowToString :: [(Int , Symbol)] -> String
-rowToString row = (unwords (map symbolToString row)) ++ "\n"
+rowToString row = "|_" ++ (concat (intersperse "_|_" (map symbolToString row))) ++ "_|\n"
 
 isValidInput :: String -> Bool
 isValidInput userInput = userInput =~ "^[1-9]$"
@@ -32,8 +35,11 @@ isValidInput userInput = userInput =~ "^[1-9]$"
 get :: IO String
 get = getLine
 
-clearScreen :: IO ()
-clearScreen = putStrLn "\ESC[2J\ESC[H"
+clearScreenHome :: IO ()
+clearScreenHome = putStrLn "\ESC[2J\ESC[H"
+
+welcomeMessage :: IO ()
+welcomeMessage = putStrLn "Welcome To Haskell Tic Tac Toe!"
 
 inputPromptMessage :: IO ()
 inputPromptMessage = putStr "Please choose a space(1-9): "
@@ -62,7 +68,7 @@ getUserInput board inputPrompt = do
 
 printBoard :: [[Symbol]] -> IO ()
 printBoard board = do
-  clearScreen
+  clearScreenHome
   putStr (buildBoardString (addIndices board))
 
 isValidSpace :: [[Symbol]] -> String -> Bool
@@ -78,4 +84,7 @@ symbolToString :: (Int , Symbol) -> String
 symbolToString indexedSymbol = do
   if (snd indexedSymbol) == Board.empty
     then show (fst indexedSymbol)
-    else show (snd indexedSymbol)
+    else do
+      if (snd indexedSymbol) == x
+        then "\x1b[31m" ++ (show (snd indexedSymbol)) ++ "\x1b[0m"
+        else "\x1b[32m" ++ (show (snd indexedSymbol)) ++ "\x1b[0m"
