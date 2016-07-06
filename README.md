@@ -1,5 +1,7 @@
 # Haskell-TTT
 
+[![Build Status](https://travis-ci.org/basilpocklington/haskell-TTT.svg?branch=master)](https://travis-ci.org/basilpocklington/haskell-TTT)
+
 ## Setup
 
 Clone the repo and cd into the game directory
