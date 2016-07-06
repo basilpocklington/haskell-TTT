@@ -32,14 +32,6 @@ spec = do
     it "should return true on valid input" $ do
       isValidMoveInput "1" `shouldBe` True
 
-    it "should return false on invalid menu input" $ do
-      isValidMenuInput "z" `shouldBe` False
-      isValidMenuInput "4" `shouldBe` False
-
-    it "should return true on valid menu input" $ do
-      isValidMenuInput "1" `shouldBe` True
-
-
     it "should return true on empty space" $ do
       isValidSpace [[empty, x, empty],
                      [x, x, x],
@@ -76,12 +68,6 @@ spec = do
       getUserMoveInput [[empty, empty, x],
                      [x, x, x],
                      [x, empty, x]] mockInput `shouldReturn`  "1"
-
-    it "should return the input from the user menu" $ do
-      getUserMenuInput mockInput `shouldReturn`  "1"
-
-    it "Should Return Welcome String" $ do
-      welcomeMessage `shouldBe` "\ESC[2J\ESC[HWelcome To Haskell Tic Tac Toe!"
 
     it "Should Return red encoded symbol in string format" $ do
       setSymbolToRed (1, x) `shouldBe` "\ESC[31mX\ESC[0m"

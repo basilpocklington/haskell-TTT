@@ -9,6 +9,7 @@ module Game
 
 import Board
 import UI
+import MenuUI
 import Player
 import Data.Tuple
 import AI
@@ -50,6 +51,5 @@ menuSelect choice = do
 
 start :: IO ()
 start = do
-  putStrLn welcomeMessage
-  input <- inputMenuPrompt
+  input <- getUserMenuInput inputMenuPrompt
   play (newBoard 3) (menuSelect input)
