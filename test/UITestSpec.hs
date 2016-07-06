@@ -61,6 +61,9 @@ spec = do
     it "should be string of symbol if not empty" $ do
       symbolToString (1, x) `shouldBe` "\ESC[31mX\ESC[0m"
 
+    it "should be string of symbol if not empty" $ do
+      symbolToString (1, o) `shouldBe` "\ESC[32mO\ESC[0m"
+
     it "should return the input from the user" $ do
       getUserInput [[empty, empty, x],
                      [x, x, x],
@@ -68,4 +71,10 @@ spec = do
 
     it "Should Return Welcome String" $ do
       welcomeMessage `shouldBe` "\ESC[2J\ESC[HWelcome To Haskell Tic Tac Toe!"
+
+    it "Should Return red encoded symbol in string format" $ do
+      setSymbolToRed (1, x) `shouldBe` "\ESC[31mX\ESC[0m"
+
+    it "Should Return red encoded symbol in string format" $ do
+      setSymbolToGreen (1, o) `shouldBe` "\ESC[32mO\ESC[0m"
 

@@ -17,7 +17,7 @@ import Control.Parallel.Strategies
 extractOptimalMove ::  (Player, Player) -> [(Int, Int)] -> Int
 extractOptimalMove player scoredMoves = do
   let sortedScoredMoves = sortBy (compare `on` snd) scoredMoves
-  if (playerSymbol (fst player)) == o
+  if (currentPlayerSymbol player) == o
     then fst (head sortedScoredMoves)
     else fst (last sortedScoredMoves)
 
@@ -43,13 +43,13 @@ calculatePoints board players depth = do
 getAllScoresForCurrentBoardState :: [[Symbol]] -> (Player, Player) -> Int -> [Int]
 getAllScoresForCurrentBoardState board players depth = do
   let availableMoves = getEmptySpaces board
-  (parMap rpar (\m -> (getOptimalScore (updateBoard m (playerSymbol (fst players)) board)) (swap players) (succ depth)) availableMoves)
+  (parMap rpar (\m -> (getOptimalScore (updateBoard m (currentPlayerSymbol players) board)) (swap players) (succ depth)) availableMoves)
 
 getOptimalScore :: [[Symbol]] -> (Player, Player) -> Int -> Int
 getOptimalScore board players depth = do
   if gameIsOver board
     then calculatePoints board players depth
-    else extractOptimalScore (playerSymbol (fst players)) (getAllScoresForCurrentBoardState board players depth)
+    else extractOptimalScore (currentPlayerSymbol players) (getAllScoresForCurrentBoardState board players depth)
 
 minimaxMove :: [[Symbol]] -> (Player, Player) -> Int  -> Int
 minimaxMove board players depth = do

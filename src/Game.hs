@@ -18,17 +18,17 @@ takeHumanTurn :: [[Symbol]] -> (Player, Player) -> IO ()
 takeHumanTurn board players = do
   printBoard board
   input <- getUserInput board inputPrompt
-  play (updateBoard (read input) (playerSymbol (fst players)) board) (swap players)
+  play (updateBoard (read input) (currentPlayerSymbol players) board) (swap players)
 
 takeComputerTurn :: [[Symbol]] -> (Player, Player) -> IO ()
 takeComputerTurn board players = do
   printBoard board
   putStrLn thinkingMessage
-  play (updateBoard (minimaxMove board players 0) (playerSymbol (fst players)) board) (swap players)
+  play (updateBoard (minimaxMove board players 0) (currentPlayerSymbol players) board) (swap players)
 
 makeMove :: [[Symbol]] -> (Player, Player) -> IO ()
 makeMove board players = do
-  if (playerType (fst players)) == "human"
+  if currentPlayerType players == "human"
     then takeHumanTurn board players
     else takeComputerTurn board players
 
@@ -42,4 +42,4 @@ start :: IO ()
 start = do
   putStrLn welcomeMessage
   threadDelay 1000000
-  play (newBoard 3) (Player {playerType="human", playerSymbol=x},Player {playerType="computer", playerSymbol=o})
+  play (newBoard 3) (Player {playerType="human", playerSymbol=x},Player {playerType="human", playerSymbol=o})

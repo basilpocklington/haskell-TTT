@@ -14,6 +14,8 @@ module UI
       , thinkingMessage
       , clearScreenHome
       , welcomeMessage
+      , setSymbolToRed
+      , setSymbolToGreen
       ) where
 
 import Board
@@ -79,11 +81,17 @@ isValidMove board space = (isValidInput space) && (isValidSpace board space)
 addIndices :: [[Symbol]] -> [[(Int , Symbol)]]
 addIndices board = chunksOf (length board) (zip [1..] (concat board))
 
-symbolToString :: (Int , Symbol) -> String
+setSymbolToRed :: (Int, Symbol) -> String
+setSymbolToRed indexedSymbol = "\x1b[31m" ++ (show (snd indexedSymbol)) ++ "\x1b[0m"
+
+setSymbolToGreen :: (Int, Symbol) -> String
+setSymbolToGreen indexedSymbol = "\x1b[32m" ++ (show (snd indexedSymbol)) ++ "\x1b[0m"
+
+symbolToString :: (Int, Symbol) -> String
 symbolToString indexedSymbol = do
   if (snd indexedSymbol) == Board.empty
     then show (fst indexedSymbol)
     else do
       if (snd indexedSymbol) == x
-        then "\x1b[31m" ++ (show (snd indexedSymbol)) ++ "\x1b[0m"
-        else "\x1b[32m" ++ (show (snd indexedSymbol)) ++ "\x1b[0m"
+        then setSymbolToRed indexedSymbol
+        else setSymbolToGreen indexedSymbol
