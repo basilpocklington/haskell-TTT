@@ -8,30 +8,31 @@ module Game
 
 import Board
 import UI
+import Player
 import Data.Tuple
 import AI
 import Control.Concurrent
 
 
-takeHumanTurn :: [[Symbol]] -> (Symbol, Symbol) -> IO ()
+takeHumanTurn :: [[Symbol]] -> (Player, Player) -> IO ()
 takeHumanTurn board players = do
   printBoard board
   input <- getUserInput board inputPrompt
-  play (updateBoard (read input) (fst players) board) (swap players)
+  play (updateBoard (read input) (playerSymbol (fst players)) board) (swap players)
 
-takeComputerTurn :: [[Symbol]] -> (Symbol, Symbol) -> IO ()
+takeComputerTurn :: [[Symbol]] -> (Player, Player) -> IO ()
 takeComputerTurn board players = do
   printBoard board
   putStrLn thinkingMessage
-  play (updateBoard (minimaxMove board players 0) (fst players) board) (swap players)
+  play (updateBoard (minimaxMove board players 0) (playerSymbol (fst players)) board) (swap players)
 
-makeMove :: [[Symbol]] -> (Symbol, Symbol) -> IO ()
+makeMove :: [[Symbol]] -> (Player, Player) -> IO ()
 makeMove board players = do
-  if (fst players) == x
+  if (playerType (fst players)) == "human"
     then takeHumanTurn board players
     else takeComputerTurn board players
 
-play :: [[Symbol]] -> (Symbol, Symbol) -> IO ()
+play :: [[Symbol]] -> (Player, Player) -> IO ()
 play board players = do
   if gameIsOver board
     then gameOver board
@@ -41,4 +42,4 @@ start :: IO ()
 start = do
   putStrLn welcomeMessage
   threadDelay 1000000
-  play (newBoard 3) (x,o)
+  play (newBoard 3) (Player {playerType="human", playerSymbol=x},Player {playerType="computer", playerSymbol=o})
