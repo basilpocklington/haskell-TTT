@@ -10,7 +10,6 @@ license:             MIT
 license-file:        LICENSE
 author:              Bjorn Johnson
 maintainer:          bjornkjohnson@gmail.com
--- copyright:
 category:            learning
 build-type:          Simple
 extra-source-files:  ChangeLog.md, README.md
@@ -18,8 +17,6 @@ cabal-version:       >=1.10
 
 executable haskell-TTT
   main-is:             Main.hs
-  -- other-modules:
-  -- other-extensions:
   build-depends:
       base == 4.*
     , hspec-core == 2.2.3
