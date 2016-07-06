@@ -33,13 +33,10 @@ play board players = do
     else makeMove board players
 
 menuSelect :: String -> (Player, Player)
-menuSelect choice = do
-  if choice == "1"
-    then humanVsHuman
-    else do
-      if choice == "2"
-        then humanVsComputer
-        else computerVsComputer
+menuSelect choice = case choice of
+                      "1" -> humanVsHuman
+                      "2" -> humanVsComputer
+                      "3" -> computerVsComputer
 
 start :: IO ()
 start = do
