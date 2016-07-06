@@ -11,6 +11,9 @@ brew cask install haskell-platform
 ```
 cabal update && cabal install hspec
 ```
+```
+export PATH="$HOME/Library/Haskell/bin:$PATH"
+```
 
 #### Playing the Game
 ```
