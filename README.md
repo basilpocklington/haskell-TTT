@@ -17,7 +17,7 @@ export PATH="$HOME/Library/Haskell/bin:$PATH"
 
 #### Playing the Game
 ```
-runhaskell -isrc src/Main.hs
+cabal build && ./dist/build/haskell-TTT/haskell-TTT
 ```
 
 #### Running the Tests
