@@ -17,7 +17,7 @@ mockInput = do
 spec :: Spec
 spec = do
   describe "UI Tests" $ do
-    it "Should print empty board with numbers for spaces" $ do
+    it "Should return formatted string of empty board with numbers for spaces" $ do
       buildBoardString (chunksOf 3 (zip [1..] (concat (newBoard 3)))) `shouldBe` "|_1_|_2_|_3_|\n|_4_|_5_|_6_|\n|_7_|_8_|_9_|\n"
 
     it "should convert empty row of symbols to string" $ do
@@ -65,4 +65,7 @@ spec = do
       getUserInput [[empty, empty, x],
                      [x, x, x],
                      [x, empty, x]] mockInput `shouldReturn`  "1"
+
+    it "Should Return Welcome String" $ do
+      welcomeMessage `shouldBe` "\ESC[2J\ESC[HWelcome To Haskell Tic Tac Toe!"
 

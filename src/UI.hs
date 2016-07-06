@@ -35,11 +35,11 @@ isValidInput userInput = userInput =~ "^[1-9]$"
 get :: IO String
 get = getLine
 
-clearScreenHome :: IO ()
-clearScreenHome = putStrLn "\ESC[2J\ESC[H"
+clearScreenHome :: String
+clearScreenHome = "\ESC[2J\ESC[H"
 
-welcomeMessage :: IO ()
-welcomeMessage = putStrLn "Welcome To Haskell Tic Tac Toe!"
+welcomeMessage :: String
+welcomeMessage = clearScreenHome ++ "Welcome To Haskell Tic Tac Toe!"
 
 inputPromptMessage :: IO ()
 inputPromptMessage = putStr "Please choose a space(1-9): "
@@ -49,9 +49,8 @@ gameOver board = do
   printBoard board
   putStrLn "Game Over!"
 
-thinkingMessage :: IO ()
-thinkingMessage = do
-  putStrLn "Computer is thinking!"
+thinkingMessage :: String
+thinkingMessage = "Computer is thinking!"
 
 inputPrompt :: IO String
 inputPrompt = do
@@ -68,7 +67,7 @@ getUserInput board inputPrompt = do
 
 printBoard :: [[Symbol]] -> IO ()
 printBoard board = do
-  clearScreenHome
+  putStr clearScreenHome
   putStr (buildBoardString (addIndices board))
 
 isValidSpace :: [[Symbol]] -> String -> Bool
