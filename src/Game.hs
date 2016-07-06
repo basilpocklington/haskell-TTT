@@ -1,11 +1,4 @@
-module Game
-  ( play
-  , makeMove
-  , takeHumanTurn
-  , takeComputerTurn
-  , menuSelect
-  , start
-  ) where
+module Game where
 
 import Board
 import UI
