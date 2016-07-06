@@ -1,26 +1,4 @@
-module UI
-      ( buildBoardString
-      , rowToString
-      , isValidMoveInput
-      , isValidMenuInput
-      , get
-      , printBoard
-      , getUserMoveInput
-      , getUserMenuInput
-      , inputPrompt
-      , inputMenuPrompt
-      , gameOver
-      , getGameOutcomeString
-      , isValidSpace
-      , isValidMove
-      , addIndices
-      , symbolToString
-      , thinkingMessage
-      , clearScreenHome
-      , welcomeMessage
-      , setSymbolToRed
-      , setSymbolToGreen
-      ) where
+module UI where
 
 import Board
 import Data.List.Split

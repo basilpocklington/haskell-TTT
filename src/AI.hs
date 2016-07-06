@@ -1,10 +1,4 @@
-module AI
-        ( extractOptimalMove
-        , getWinnerPoints
-        , calculatePoints
-        , minimaxMove
-        ,getAllScoresForCurrentBoardState
-        ) where
+module AI where
 
 import Board
 import Player

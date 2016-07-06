@@ -1,22 +1,4 @@
-module Board
-  ( Symbol
-  , empty
-  , x
-  , o
-  , newBoard
-  , updateNthElement
-  , updateBoard
-  , isFull
-  , gameIsOver
-  , checkRowWinner
-  , containsEmptySpace
-  , getDiagonal
-  , getAntiDiagonal
-  , getColumns
-  , getAllCombinations
-  , getWinner
-  , getEmptySpaces
-  ) where
+module Board where
 
 import Data.List.Split
 import Data.List
