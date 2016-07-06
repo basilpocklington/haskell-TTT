@@ -10,6 +10,10 @@ import Data.List.Split
 main :: IO ()
 main = hspec spec
 
+mockInput :: IO String
+mockInput = do
+  return "1"
+
 spec :: Spec
 spec = do
   describe "UI Tests" $ do
@@ -51,9 +55,14 @@ spec = do
                                   , [(4, x), (5, x), (6, x)]
                                   ,[(7, x), (8, empty), (9, x)]]
 
-    it "should string of number if empty" $ do
+    it "should be string of number if empty" $ do
       symbolToString (1,empty) `shouldBe` "1"
 
-    it "should string of symbol if not empty" $ do
+    it "should be string of symbol if not empty" $ do
       symbolToString (1, x) `shouldBe` "X"
+
+    it "should return the input from the user" $ do
+      getUserInput [[empty, empty, x],
+                     [x, x, x],
+                     [x, empty, x]] mockInput `shouldReturn`  "1"
 

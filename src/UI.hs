@@ -32,31 +32,38 @@ isValidInput userInput = userInput =~ "^[1-9]$"
 get :: IO String
 get = getLine
 
-inputPrompt :: IO String
-inputPrompt = do
-  putStr "Please choose a space(1-9): "
-  hFlush stdout
-  getLine
+clearScreen :: IO ()
+clearScreen = putStrLn "\ESC[2J\ESC[H"
 
-getUserInput :: [[Symbol]] -> IO String
-getUserInput board = do
-  input <- inputPrompt
-  if isValidMove board input
-    then return input
-    else getUserInput board
+inputPromptMessage :: IO ()
+inputPromptMessage = putStr "Please choose a space(1-9): "
 
-printBoard :: [[Symbol]] -> IO ()
-printBoard board = do
-  clearScreen
-  putStr (buildBoardString (addIndices board))
-
-gameOver :: IO ()
-gameOver = do
+gameOver :: [[Symbol]] -> IO ()
+gameOver board = do
+  printBoard board
   putStrLn "Game Over!"
 
 thinkingMessage :: IO ()
 thinkingMessage = do
   putStrLn "Computer is thinking!"
+
+inputPrompt :: IO String
+inputPrompt = do
+  inputPromptMessage
+  hFlush stdout
+  getLine
+
+getUserInput :: [[Symbol]] -> IO String -> IO String
+getUserInput board inputPrompt = do
+  input <- inputPrompt
+  if isValidMove board input
+    then return input
+    else getUserInput board inputPrompt
+
+printBoard :: [[Symbol]] -> IO ()
+printBoard board = do
+  clearScreen
+  putStr (buildBoardString (addIndices board))
 
 isValidSpace :: [[Symbol]] -> String -> Bool
 isValidSpace board space = ((concat board) !! ((read space)-1)) == Board.empty
@@ -72,6 +79,3 @@ symbolToString indexedSymbol = do
   if (snd indexedSymbol) == Board.empty
     then show (fst indexedSymbol)
     else show (snd indexedSymbol)
-
-clearScreen :: IO ()
-clearScreen = putStrLn "\ESC[2J\ESC[H"
