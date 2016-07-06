@@ -13,9 +13,6 @@ buildBoardString board = concat (map rowToString board)
 rowToString :: [(Int , Symbol)] -> String
 rowToString row = "|_" ++ (concat (intersperse "_|_" (map symbolToString row))) ++ "_|\n"
 
-isValidMenuInput :: String -> Bool
-isValidMenuInput userInput = userInput =~ "^[1-3]$"
-
 isValidMoveInput :: String -> Bool
 isValidMoveInput userInput = userInput =~ "^[1-9]$"
 
@@ -24,16 +21,6 @@ get = getLine
 
 clearScreenHome :: String
 clearScreenHome = "\ESC[2J\ESC[H"
-
-welcomeMessage :: String
-welcomeMessage = clearScreenHome ++ "Welcome To Haskell Tic Tac Toe!"
-
-menuPromptMessage :: IO ()
-menuPromptMessage = do
-  putStrLn "1) Human vs Human"
-  putStrLn "2) Human vs Computer"
-  putStrLn "3) Computer vs Computer"
-  putStr "Please choose a game type(1-3): "
 
 inputMovePromptMessage :: IO ()
 inputMovePromptMessage = putStr "Please choose a space(1-9): "
@@ -58,19 +45,6 @@ inputPrompt = do
   inputMovePromptMessage
   hFlush stdout
   getLine
-
-inputMenuPrompt :: IO String
-inputMenuPrompt = do
-  menuPromptMessage
-  hFlush stdout
-  getLine
-
-getUserMenuInput :: IO String -> IO String
-getUserMenuInput inputMenuPrompt = do
-  input <- inputMenuPrompt
-  if isValidMenuInput input
-    then return input
-    else getUserMenuInput inputMenuPrompt
 
 getUserMoveInput :: [[Symbol]] -> IO String -> IO String
 getUserMoveInput board inputPrompt = do
